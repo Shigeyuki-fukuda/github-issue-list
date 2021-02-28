@@ -1,0 +1,8 @@
+/*
+Unknown at rule @tailwindcss(unknownAtRules)のアラートは
+CSSとして@tailwindが解釈されないだけなので無視して良い
+refs: https://github.com/microsoft/vscode/issues/103163
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
