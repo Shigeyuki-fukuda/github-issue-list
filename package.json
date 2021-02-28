@@ -7,7 +7,8 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "test": "jest"
+    "test": "jest",
+    "json": "json-server -p 3001 --watch db.json"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.1",

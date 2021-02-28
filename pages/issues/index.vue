@@ -18,7 +18,9 @@ export default Vue.extend({
     }
   },
   async mounted () {
-    this.issues = await this.$axios.$get('https://api.github.com/repos/facebook/react/issues?page=1&per_page=10')
+    // 本来は下記APIを叩くがAPIのリクエスト制限を考慮して開発時は同様の形式のレスポンスのdb.jsonのエンドポイントを叩く
+    // this.issues = await this.$axios.$get('https://api.github.com/repos/facebook/react/issues?page=1&per_page=10')
+    this.issues = await this.$axios.$get('http://localhost:3001/issues')
     console.log(this.issues[0])
     console.log(this.issues[1])
   }
