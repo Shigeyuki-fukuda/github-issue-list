@@ -21,11 +21,13 @@
           <table class="min-w-full leading-normal">
             <thead>
               <tr>
-                <th scope="col" class="px-5 py-3 bg-purple-600  border-b border-gray-200 text-white text-left text-sm font-bold">
+                <th scope="col" class="px-5 py-3 bg-purple-600 border-b border-gray-200 text-white text-left text-sm font-bold">
                   issue番号
                 </th>
-                <th scope="col" class="px-5 py-3 bg-purple-600  border-b border-gray-200 text-white text-left text-sm font-bold">
+                <th scope="col" class="px-5 py-3 bg-purple-600 border-b border-gray-200 text-white text-left text-sm font-bold">
                   タイトル
+                </th>
+                <th scope="col" class="px-5 py-3 bg-purple-600 border-b border-gray-200 text-white text-left text-sm font-bold">
                 </th>
               </tr>
             </thead>
@@ -44,6 +46,13 @@
                   <p class="text-gray-900 whitespace-no-wrap font-bold">
                     {{ issue.title }}
                   </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <nuxt-link :to="`/issues/${issue.number}`">
+                    <button class="flex-shrink-0 px-4 py-2 text-base font-medium transition ease-in duration-200 rounded-lg hover:bg-purple-600 hover:text-white border-2 border-purple-600 focus:outline-none">
+                      詳細
+                    </button>
+                  </nuxt-link>
                 </td>
               </tr>
             </tbody>
