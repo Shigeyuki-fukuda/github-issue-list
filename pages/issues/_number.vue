@@ -10,10 +10,11 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
-  async asyncData({ params }) {
-    const res = await axios.get(`https://api.github.com/repos/facebook/react/issues/${params.number}`)
+  async asyncData({ app, params }) {
+    // 本来は下記APIを叩くがAPIのリクエスト制限を考慮して開発時は同様の形式のレスポンスのdb.jsonのエンドポイントを叩く
+    // const res = await app.$axios.get(`https://api.github.com/repos/facebook/react/issues/${params.number}`)
+    const res = await app.$axios.get('http://localhost:3001/detail')
     const issue = res.data
     return { issue }
   }
