@@ -112,5 +112,10 @@
       "body": "Event handling with portals is broken in the newest version when placing non-react event handlers BETWEEN other react event handlers. With the following setup **outer react event handler with stopPropagation** > **non-react event handler** > **inner react event handler (in portal)**. Doing the same without portals works correctly. React version: 17.0.1 ## Steps To Reproduce ### With portal (not working) 1. https://stackblitz.com/edit/ag-grid-react-hello-world-gwuhed?devtoolsheight=33&file=index.js 2. Click on the div 3. Only inner and outer event handlers are called ### Without portal (working) 1. https://stackblitz.com/edit/ag-grid-react-hello-world-gwuhed?devtoolsheight=33&file=index.js 2. Comment out the portal code and comment in the non-portal code (line 24 / 25) 3. Click on the div 4. All three event handlers are triggered Link to code example: https://stackblitz.com/edit/ag-grid-react-hello-world-gwuhed?devtoolsheight=33&file=index.js ## The current behavior Non-react event handlers are not called when the initial event is initiated from a portal component and an outer react event handler calls stop propagation. This works correctly without portals. ## The expected behavior The non-react event handler should also be called when a portal component initiates the event.",
       "performed_via_github_app": null
     }
-  ]
+  ],
+  "detail": {
+    "number": "20902",
+    "title": "Bug: current npm react-cache version doesn't work",
+    "body": "React version: any after `16.8.0` #### Steps To Reproduce 1. use react-cache 2. `TypeError Cannot read property 'readContext' of undefined` will be fired as i understand npm contains obsolete version of `react-cache` code still contains staff for context reading that was changed here https://github.com/facebook/react/pull/14548 Any chance that react-cache will be updated on npm in near future? Link to code example: https://codesandbox.io/s/react-cache-f6n25"
+  }
 }
