@@ -8,7 +8,12 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'hexadecimal-code': '#00b3d2',
+        'light-hexadecimal-code': '#4595ca'
+      }
+    },
   },
   variants: {
     extend: {},
