@@ -89,11 +89,13 @@ import Vue from 'vue'
 // Vue.extendをすることでTypeScriptではなくVue.jsの記法そのままで書ける
 // refs: https://qiita.com/shindex/items/a90217b9e4c03c5b5215
 export default Vue.extend({
-  async asyncData({ app }) {
+  async asyncData({ $axios, query }) {
+    const page = Number(query.page) || 1;
+    const perPage = [Number(query.per_page), 10].reduce((per_page, page_limit) => { return Math.min(per_page, page_limit) }) || 10;
     // 本来は下記APIを叩くがAPIのリクエスト制限を考慮して開発時は同様の形式のレスポンスのdb.jsonのエンドポイントを叩く
     // const issues = await app.$axios.$get('https://api.github.com/repos/facebook/react/issues?page=1&per_page=10')
-    const issues = await app.$axios.$get('http://localhost:3001/issues')
-    return { issues }
+    const issues = await $axios.$get(`http://localhost:3001/issues?page=${page}&per_page=${perPage}`)
+    return { issues, page, perPage }
   }
 })
 </script>
