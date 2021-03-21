@@ -45,6 +45,12 @@ export const issuesStore = () => {
     },
     set lastPage(isLast: boolean) {
       state.lastPage = isLast;
+    },
+    showPrev(): boolean {
+      return 1 < state.currentPage;
+    },
+    showNext(): boolean {
+      return !state.lastPage;
     }
   };
 }

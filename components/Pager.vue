@@ -20,22 +20,23 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from '@nuxtjs/composition-api'
-import { issuesStore } from '@/components/issues/composables/store'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'Pager',
-  setup() {
-    const store = issuesStore();
-    const currentPage: ComputedRef<number> = computed(() => store.currentPage);
-    const showPrev: ComputedRef<boolean> = computed(() => 1 < store.currentPage);
-    const showNext: ComputedRef<boolean> = computed(() => !store.lastPage);
-
-    return {
-      currentPage,
-      showPrev,
-      showNext
-    };
+  props: {
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    showPrev: {
+      type: Boolean,
+      default: false
+    },
+    showNext: {
+      type: Boolean,
+      default: true
+    }
   }
 })
 </script>

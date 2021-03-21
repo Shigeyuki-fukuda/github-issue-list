@@ -50,7 +50,7 @@
               </tr>
             </tbody>
           </table>
-          <Pager />
+          <Pager :currentPage="currentPage" :showPrev="showPrev" :showNext="showNext" />
         </div>
       </div>
     </div>
@@ -58,17 +58,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, useRoute, computed, ref } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, useRoute, computed } from '@nuxtjs/composition-api'
 import { issuesStore } from '@/components/issues/composables/store'
 
 export default defineComponent({
   setup() {
     const route = useRoute();
-    const page  = Number(route.value.query.page);
+    const page  = Number(route.value.query.page) || 1;
     const store = issuesStore();
     const { $axios } = useContext();
     const { fetch } = useFetch(async () => {
-      if (!store.issues.length) { 
+      if (!store.issues.length) {
         if (page !== 1) store.currentPage = page;
         await store.fetchIssues($axios);
         if (store.issues.length <= 10) {
@@ -83,7 +83,10 @@ export default defineComponent({
 
     return {
       issues,
-      page
+      page,
+      currentPage: store.currentPage,
+      showPrev: computed(() => store.showPrev()),
+      showNext: computed(() => store.showNext())
     };
   }
 })
