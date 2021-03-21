@@ -14,13 +14,16 @@
 </template>
 
 <script>
-export default {
-  async asyncData({ app, params }) {
-    // 本来は下記APIを叩くがAPIのリクエスト制限を考慮して開発時は同様の形式のレスポンスのdb.jsonのエンドポイントを叩く
-    // const res = await app.$axios.get(`https://api.github.com/repos/facebook/react/issues/${params.number}`)
-    const res = await app.$axios.get('http://localhost:3001/detail')
+import { defineComponent, useAsync, useContext, useRoute } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    const route = useRoute()  
+    const { $axios } = useContext()
+    // const res = useAsync(() => $axios.get(`https://api.github.com/repos/facebook/react/issues/${route.value.params.number}`))
+    const res = useAsync(async () => await $axios.get('http://localhost:3001/detail'))
     const issue = res.data
     return { issue }
   }
-}
+})
 </script>
