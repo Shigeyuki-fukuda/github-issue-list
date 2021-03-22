@@ -5,22 +5,38 @@
 			<nuxt-link to="/issues">
         <p class="text-base md:text-md text-hexadecimal-code hover:text-light-hexadecimal-code font-bold">&lt; BACK TO ISSUES</p>
       </nuxt-link>
-      <h1 class="font-bold font-sans break-normal text-gray-900 pt-8 pb-4 text-3xl md:text-4xl">{{ issue.title }} <span class="font-light text-gray-500">#{{ issue.number }}</span></h1>
-      <p class="mt-8">
-        {{ issue.body }}
-      </p>
+      <template v-if="issue">
+        <h1 class="font-bold font-sans break-normal text-gray-900 pt-8 pb-4 text-3xl md:text-4xl">
+          {{ issue.title }} <span class="font-light text-gray-500">#{{ issue.number }}</span>
+        </h1>
+        <p class="mt-8">
+          {{ issue.body }}
+        </p>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  async asyncData({ app, params }) {
-    // 本来は下記APIを叩くがAPIのリクエスト制限を考慮して開発時は同様の形式のレスポンスのdb.jsonのエンドポイントを叩く
-    // const res = await app.$axios.get(`https://api.github.com/repos/facebook/react/issues/${params.number}`)
-    const res = await app.$axios.get('http://localhost:3001/detail')
-    const issue = res.data
+import { defineComponent, useRoute, useContext, useFetch, computed } from '@nuxtjs/composition-api'
+import { useIssuesStore } from '@/components/issues/composables/store'
+
+export default defineComponent({
+  setup() {
+    const store = useIssuesStore();
+    const route = useRoute();
+    const { $axios } = useContext();
+    const { fetch } = useFetch(async () => {
+      store.issueNumber = Number(route.value.params.number) || null;
+      if (!store.issue) {
+        store.issue = store.issues.find((issue) => issue.number === store.issueNumber) || null;
+        if (!store.issue) await store.fetchIssue($axios);
+      }
+    });
+    fetch();
+
+    const issue = computed(() => store.issue);
     return { issue }
   }
-}
+})
 </script>
