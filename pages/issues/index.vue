@@ -5,16 +5,6 @@
         <h2 class="text-2xl leading-tight font-bold">
           GitHub Issue Search
         </h2>
-        <div class="text-end">
-          <form class="flex w-full max-w-sm space-x-3">
-            <div class=" relative ">
-              <input type="text" id="&quot;form-subscribe-Filter" class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-hexadecimal-code focus:border-transparent" placeholder="name"/>
-            </div>
-            <button class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-hexadecimal-code rounded-lg shadow-md hover:bg-light-hexadecimal-code focus:outline-none" type="submit">
-              Filter
-            </button>
-          </form>
-        </div>
       </div>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
