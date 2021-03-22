@@ -7,21 +7,34 @@ type Issue = {
   number: number;
 }
 type IssuesState = {
+  issue: Issue | null;
   issues: Issue[];
   currentPage: number;
   lastPage: boolean;
+  issueNumber: number | null;
 }
 
 export const issuesStore = () => {
   const state: IssuesState = reactive({
+    issue: null,
     issues: [],
     currentPage: 1,
-    lastPage: false
+    lastPage: false,
+    issueNumber: null
   });
 
   return {
-    issue(number: number): Issue | null {
-      return state.issues.find((issue) => { return issue.number === number }) || null;
+    get issue(): Issue | null {
+      return state.issue;
+    },
+    set issue(issue: Issue | null) {
+      state.issue = issue;
+    },
+    get issueNumber(): number | null {
+      return state.issueNumber;
+    },
+    set issueNumber(number: number | null) {
+      state.issueNumber = number;
     },
     get issues(): Issue[] {
       return state.issues;
@@ -29,6 +42,12 @@ export const issuesStore = () => {
     async fetchIssues(axios: NuxtAxiosInstance): Promise<void> {
       await axios.$get(`https://api.github.com/repos/facebook/react/issues?page=${state.currentPage}&per_page=11`).then(response => {
         state.issues = response;
+      });
+    },
+    async fetchIssue(axios: NuxtAxiosInstance): Promise<void> {
+      if (!state.issueNumber) return;
+      await axios.$get(`https://api.github.com/repos/facebook/react/issues/${state.issueNumber}`).then(response => {
+        state.issue = response;
       });
     },
     popIssues(): void {
