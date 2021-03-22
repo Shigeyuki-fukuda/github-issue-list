@@ -58,13 +58,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, useRoute, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, useRoute, computed, watch } from '@nuxtjs/composition-api'
 import { useIssuesStore } from '@/components/issues/composables/store'
 
 export default defineComponent({
   setup() {
     const route = useRoute();
-    const page  = Number(route.value.query.page) || 1;
+    let page = Number(route.value.query.page) || 1;
     const store = useIssuesStore();
     const { $axios } = useContext();
     const { fetch } = useFetch(async () => {
@@ -80,11 +80,21 @@ export default defineComponent({
     });
     fetch();
     const issues = computed(() => store.issues);
+    watch(route, async (to) => {
+      page = Number(to.query.page) || 1;
+      store.currentPage = page;
+      await store.fetchIssues($axios);
+      if (store.issues.length <= 10) {
+        store.lastPage = true;
+        return;
+      }
+      store.popIssues();
+    });
 
     return {
       issues,
       page,
-      currentPage: store.currentPage,
+      currentPage: computed(() => store.currentPage),
       showPrev: computed(() => store.showPrev()),
       showNext: computed(() => store.showNext())
     };
