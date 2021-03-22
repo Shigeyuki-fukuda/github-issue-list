@@ -19,11 +19,11 @@
 
 <script>
 import { defineComponent, useRoute, useContext, useFetch, computed } from '@nuxtjs/composition-api'
-import { issuesStore } from '@/components/issues/composables/store'
+import { useIssuesStore } from '@/components/issues/composables/store'
 
 export default defineComponent({
   setup() {
-    const store = issuesStore();
+    const store = useIssuesStore();
     const route = useRoute();
     const { $axios } = useContext();
     const { fetch } = useFetch(async () => {

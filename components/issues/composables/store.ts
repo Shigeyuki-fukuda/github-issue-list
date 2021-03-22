@@ -14,7 +14,7 @@ type IssuesState = {
   issueNumber: number | null;
 }
 
-export const issuesStore = () => {
+export const useIssuesStore = () => {
   const state: IssuesState = reactive({
     issue: null,
     issues: [],

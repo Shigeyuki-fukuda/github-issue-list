@@ -59,13 +59,13 @@
 
 <script lang="ts">
 import { defineComponent, useContext, useFetch, useRoute, computed } from '@nuxtjs/composition-api'
-import { issuesStore } from '@/components/issues/composables/store'
+import { useIssuesStore } from '@/components/issues/composables/store'
 
 export default defineComponent({
   setup() {
     const route = useRoute();
     const page  = Number(route.value.query.page) || 1;
-    const store = issuesStore();
+    const store = useIssuesStore();
     const { $axios } = useContext();
     const { fetch } = useFetch(async () => {
       if (!store.issues.length) {
