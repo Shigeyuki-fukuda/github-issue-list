@@ -73,5 +73,3 @@ export const useIssuesStore = () => {
     }
   };
 }
-
-export type IssuesStore = ReturnType<typeof issuesStore>;
