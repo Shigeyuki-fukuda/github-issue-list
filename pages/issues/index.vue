@@ -9,7 +9,11 @@
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
           <IssuesTable :issues="issues" />
-          <Pager :currentPage="currentPage" :showPrev="showPrev" :showNext="showNext" />
+          <Pager
+            :current-page="currentPage"
+            :show-prev="showPrev"
+            :show-next="showNext"
+          />
         </div>
       </div>
     </div>
@@ -17,7 +21,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, useRoute, computed, watch } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  useFetch,
+  useRoute,
+  computed,
+  watch
+} from '@nuxtjs/composition-api'
 import { useIssuesStore } from '@/components/issues/composables/store'
 import IssuesTable from '@/components/issues/Table.vue'
 import Pager from '@/components/Pager.vue'
@@ -28,33 +39,33 @@ export default defineComponent({
     Pager
   },
   setup() {
-    const route = useRoute();
-    let page = Number(route.value.query.page) || 1;
-    const store = useIssuesStore();
-    const { $axios } = useContext();
+    const route = useRoute()
+    let page = Number(route.value.query.page) || 1
+    const store = useIssuesStore()
+    const { $axios } = useContext()
     const { fetch } = useFetch(async () => {
       if (!store.issues.length) {
-        if (page !== 1) store.currentPage = page;
-        await store.fetchIssues($axios);
+        if (page !== 1) store.currentPage = page
+        await store.fetchIssues($axios)
         if (store.issues.length <= 10) {
-          store.lastPage = true;
-          return;
+          store.lastPage = true
+          return
         }
-        store.popIssues();
+        store.popIssues()
       }
-    });
-    fetch();
-    const issues = computed(() => store.issues);
-    watch(route, async (to) => {
-      page = Number(to.query.page) || 1;
-      store.currentPage = page;
-      await store.fetchIssues($axios);
+    })
+    fetch()
+    const issues = computed(() => store.issues)
+    watch(route, async to => {
+      page = Number(to.query.page) || 1
+      store.currentPage = page
+      await store.fetchIssues($axios)
       if (store.issues.length <= 10) {
-        store.lastPage = true;
-        return;
+        store.lastPage = true
+        return
       }
-      store.popIssues();
-    });
+      store.popIssues()
+    })
 
     return {
       issues,
@@ -62,10 +73,9 @@ export default defineComponent({
       currentPage: computed(() => store.currentPage),
       showPrev: computed(() => store.showPrev()),
       showNext: computed(() => store.showNext())
-    };
+    }
   }
 })
 </script>
 
-<style>
-</style>
+<style></style>

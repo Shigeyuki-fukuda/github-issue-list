@@ -2,16 +2,26 @@
   <table class="min-w-full leading-normal">
     <thead>
       <tr>
-        <th scope="col" class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold">
+        <th
+          scope="col"
+          class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold"
+        >
           Number
         </th>
-        <th scope="col" class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold">
+        <th
+          scope="col"
+          class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold"
+        >
           Title
         </th>
       </tr>
     </thead>
     <tbody>
-      <IssuesTableRecord v-for="issue in issues" :issue="issue" :key="issue.number"/>
+      <IssuesTableRecord
+        v-for="issue in issues"
+        :key="issue.number"
+        :issue="issue"
+      />
     </tbody>
   </table>
 </template>
