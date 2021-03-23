@@ -3,7 +3,7 @@
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
         <h2 class="text-2xl leading-tight font-bold">
-          GitHub Issue Search
+          GitHub Issue List
         </h2>
       </div>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
