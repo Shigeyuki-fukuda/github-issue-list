@@ -7,6 +7,8 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
+    "lint-fix": "eslint --fix --ext .js,.ts,.vue --ignore-path .gitignore .",
     "test": "jest",
     "json": "json-server -p 3001 --watch db.json"
   },
