@@ -38,7 +38,7 @@ export default defineComponent({
   props: {
     issues: {
       type: Array,
-      default: []
+      default: () => []
     }
   }
 })
