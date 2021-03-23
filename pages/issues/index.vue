@@ -8,38 +8,7 @@
       </div>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-          <table class="min-w-full leading-normal">
-            <thead>
-              <tr>
-                <th scope="col" class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold">
-                  Number
-                </th>
-                <th scope="col" class="px-5 py-3 bg-hexadecimal-code border-b border-gray-200 text-white text-left text-sm font-bold">
-                  Title
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="issue in issues" :key="issue.number">
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <div class="flex items-center">
-                    <div>
-                      <p class="text-gray-900 font-bold">
-                        #{{ issue.number }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <nuxt-link :to="`/issues/${issue.number}`">
-                    <p class="text-gray-900 hover:text-gray-400 font-bold">
-                      {{ issue.title }}
-                    </p>
-                  </nuxt-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <IssuesTable :issues="issues" />
           <Pager :currentPage="currentPage" :showPrev="showPrev" :showNext="showNext" />
         </div>
       </div>
@@ -50,8 +19,14 @@
 <script lang="ts">
 import { defineComponent, useContext, useFetch, useRoute, computed, watch } from '@nuxtjs/composition-api'
 import { useIssuesStore } from '@/components/issues/composables/store'
+import IssuesTable from '@/components/issues/Table.vue'
+import Pager from '@/components/Pager.vue'
 
 export default defineComponent({
+  components: {
+    IssuesTable,
+    Pager
+  },
   setup() {
     const route = useRoute();
     let page = Number(route.value.query.page) || 1;
