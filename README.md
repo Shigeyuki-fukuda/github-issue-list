@@ -1,5 +1,15 @@
 # github-issue-list
 
+## 本番URL
+
+issue一覧ページ  
+https://github-issue-list.netlify.app/issues/
+
+## 使用技術
+
+- Nuxt.js (Composition API)
+- TypeScript
+
 ## Build Setup
 
 ```bash
@@ -19,5 +29,3 @@ $ npm run generate
 # start mock server
 $ npm run json
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
