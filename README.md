@@ -1,14 +1,16 @@
 # github-issue-list
 
-## 本番URL
+## 本番 URL
 
-issue一覧ページ  
+issue 一覧ページ  
 https://github-issue-list.netlify.app/issues/
 
 ## 使用技術
 
 - Nuxt.js (Composition API)
 - TypeScript
+- Jest / Vue Test Utils
+- Tailwind CSS
 
 ## Build Setup
 
