@@ -6,7 +6,6 @@
       <nuxt-link
         v-show="showPrev"
         :to="`/issues/?page=${currentPage - 1}`"
-        type="button"
         class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
       >
         <svg
@@ -31,7 +30,6 @@
       <nuxt-link
         v-show="showNext"
         :to="`/issues/?page=${currentPage + 1}`"
-        type="button"
         class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100"
       >
         <svg
