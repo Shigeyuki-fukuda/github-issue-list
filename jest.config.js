@@ -1,4 +1,9 @@
 module.exports = {
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
+  },
   moduleNameMapper: {
     '@nuxtjs/composition-api': '@nuxtjs/composition-api/lib/entrypoint.js',
     '^@/(.*)$': '<rootDir>/$1',
