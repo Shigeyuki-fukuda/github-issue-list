@@ -81,3 +81,4 @@ export const useIssuesStore = () => {
     }
   }
 }
+export type UseIssuesStore = ReturnType<typeof useIssuesStore>
