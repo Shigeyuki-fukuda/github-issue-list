@@ -31,7 +31,7 @@ import {
   useFetch,
   ref
 } from '@nuxtjs/composition-api'
-import { Issue } from '@/components/issues/composables/store'
+import { Issue } from '~/types/issue'
 
 export default defineComponent({
   setup() {

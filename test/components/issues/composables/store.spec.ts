@@ -1,7 +1,7 @@
 import {
   useIssuesStore,
   UseIssuesStore
-} from '@/components/issues/composables/store'
+} from '~/types/issue'
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 
 describe('useIssuesStore', () => {

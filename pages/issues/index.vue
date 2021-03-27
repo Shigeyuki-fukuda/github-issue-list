@@ -31,7 +31,7 @@ import {
   watch,
   ref
 } from '@nuxtjs/composition-api'
-import { Issue } from '@/components/issues/composables/store'
+import { Issue } from '~/types/issue'
 import IssuesTable from '@/components/issues/Table.vue'
 import Pager from '@/components/Pager.vue'
 
