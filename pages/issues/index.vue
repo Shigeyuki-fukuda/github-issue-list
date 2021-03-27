@@ -11,7 +11,7 @@
           <IssuesTable v-if="issues.length" :issues="issues" />
           <Pager
             v-if="issues.length"
-            :current-page="currentPage"
+            :current-page="page"
             :show-prev="showPrev"
             :show-next="showNext"
           />
@@ -28,9 +28,10 @@ import {
   useFetch,
   useRoute,
   computed,
-  watch
+  watch,
+  ref
 } from '@nuxtjs/composition-api'
-import { useIssuesStore } from '@/components/issues/composables/store'
+import { Issue } from '@/components/issues/composables/store'
 import IssuesTable from '@/components/issues/Table.vue'
 import Pager from '@/components/Pager.vue'
 
@@ -41,39 +42,47 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    let page = Number(route.value.query.page) || 1
-    const store = useIssuesStore()
+    const page = ref(Number(route.value.query.page) || 1)
+    const lastPage = ref(false)
     const { $axios } = useContext()
+    const issues = ref<Issue[]>([])
+    const fetchIssues = async (): Promise<Issue[]> => {
+      return await $axios
+        .$get(
+          `https://api.github.com/repos/facebook/react/issues?page=${page.value}&per_page=11`
+        )
+        .then(response => response)
+        .catch(error => {
+          console.log(error)
+          return []
+        })
+    }
+
     const { fetch } = useFetch(async () => {
-      if (!store.issues.length) {
-        if (page !== 1) store.currentPage = page
-        await store.fetchIssues($axios)
-        if (store.issues.length <= 10) {
-          store.lastPage = true
-          return
-        }
-        store.popIssues()
-      }
-    })
-    fetch()
-    const issues = computed(() => store.issues)
-    watch(route, async to => {
-      page = Number(to.query.page) || 1
-      store.currentPage = page
-      await store.fetchIssues($axios)
-      if (store.issues.length <= 10) {
-        store.lastPage = true
+      issues.value = await fetchIssues()
+      if (issues.value.length <= 10) {
+        lastPage.value = true
         return
       }
-      store.popIssues()
+      issues.value.pop()
+    })
+    fetch()
+    watch(route, async to => {
+      page.value = Number(to.query.page) || 1
+      issues.value = await fetchIssues()
+      console.log(issues.value)
+      if (issues.value.length <= 10) {
+        lastPage.value = true
+        return
+      }
+      issues.value.pop()
     })
 
     return {
       issues,
       page,
-      currentPage: computed(() => store.currentPage),
-      showPrev: computed(() => store.showPrev()),
-      showNext: computed(() => store.showNext())
+      showPrev: computed(() => page.value > 1),
+      showNext: computed(() => !lastPage.value)
     }
   }
 })
