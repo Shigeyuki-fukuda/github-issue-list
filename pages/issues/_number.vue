@@ -23,32 +23,37 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   defineComponent,
   useRoute,
   useContext,
   useFetch,
-  computed
+  ref
 } from '@nuxtjs/composition-api'
-import { useIssuesStore } from '@/components/issues/composables/store'
+import { Issue } from '~/types/issue'
 
 export default defineComponent({
   setup() {
-    const store = useIssuesStore()
     const route = useRoute()
+    const issue = ref<Issue | null>(null)
+    const issueNumber = ref(Number(route.value.params.number))
     const { $axios } = useContext()
+    const fetchIssue = async (): Promise<Issue | null> => {
+      return await $axios
+        .$get(
+          `https://api.github.com/repos/facebook/react/issues/${issueNumber.value}`
+        )
+        .then(response => response)
+        .catch(error => {
+          console.log(error)
+          return null
+        })
+    }
     const { fetch } = useFetch(async () => {
-      store.issueNumber = Number(route.value.params.number) || null
-      if (!store.issue) {
-        store.issue =
-          store.issues.find(issue => issue.number === store.issueNumber) || null
-        if (!store.issue) await store.fetchIssue($axios)
-      }
+      issue.value = await fetchIssue()
     })
     fetch()
-
-    const issue = computed(() => store.issue)
     return { issue }
   }
 })
