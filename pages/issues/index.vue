@@ -70,7 +70,6 @@ export default defineComponent({
     watch(route, async to => {
       page.value = Number(to.query.page) || 1
       issues.value = await fetchIssues()
-      console.log(issues.value)
       if (issues.value.length <= 10) {
         lastPage.value = true
         return
