@@ -57,7 +57,6 @@ export default defineComponent({
           return []
         })
     }
-
     const { fetch } = useFetch(async () => {
       issues.value = await fetchIssues()
       if (issues.value.length <= 10) {
@@ -86,5 +85,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style></style>
