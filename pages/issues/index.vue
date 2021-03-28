@@ -53,7 +53,7 @@ export default defineComponent({
         )
         .then(response => response)
         .catch(error => {
-          console.log(error)
+          console.error(error)
           return []
         })
     }
