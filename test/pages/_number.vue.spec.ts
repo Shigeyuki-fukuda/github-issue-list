@@ -4,8 +4,7 @@ import NumberPage from '@/pages/issues/_number.vue'
 import axios, { AxiosInstance } from 'axios'
 jest.mock('axios')
 const mockedAxios: jest.Mocked<AxiosInstance> = axios as any
-const responseData: Issue = 
-{
+const responseData: Issue = {
   title: "Bug: current npm react-cache version doesn't work",
   number: 20901,
   body:
