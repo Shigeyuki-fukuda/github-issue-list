@@ -18,13 +18,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { Issue } from '@/types/issue'
 
 export default defineComponent({
   name: 'IssuesTableRecord',
   props: {
     issue: {
-      type: Object,
+      type: Object as PropType<Issue>,
       default: null
     }
   }
