@@ -15,7 +15,7 @@
           {{ issue.title }}
           <span class="font-light text-gray-500">#{{ issue.number }}</span>
         </h1>
-        <p class="mt-8">
+        <p class="mt-8 whitespace-pre-line">
           {{ issue.body }}
         </p>
       </template>
