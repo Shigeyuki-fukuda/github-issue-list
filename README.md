@@ -33,9 +33,6 @@ $ npm run start
 # generate static project
 $ npm run generate
 
-# start mock server
-$ npm run json
-
 # lint
 $ npm run lint-fix
 ```
